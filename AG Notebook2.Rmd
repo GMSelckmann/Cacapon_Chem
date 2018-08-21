@@ -1,0 +1,105 @@
+---
+title: "Cacapon and Lost River WV Dept of Agriculture Data 2016-2017"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Introduction
+This R-notebook is intended for the West Virginia Department of Agriculture and West Virginia Department of Environmental Protection. The purpose of this document is to expedite water chemistry data analysis, collected by the West Virginia Department of Agriculture.
+
+
+# Load in Package for Analysis and Graphics + Clean Data
+```{r}
+library(tidyverse)
+Cacapon.River.2016.2017<- read.csv("C:/Users/gmselckmann/Desktop/AG_DATA_2016_2017/Cacapon River 2016 2017.csv", 
+                                   stringsAsFactors = FALSE)
+
+Ag_Data.df <- Cacapon.River.2016.2017 %>% 
+  mutate(date=as.Date(Collection.Date, format="%m/%d/%Y"),
+         ORTHOPHOSPHATE_W=as.numeric(ORTHOPHOSPHATE_W))
+```
+
+# Cacapon Data Conductivity
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, CONDUCTIVITY_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("CONDUCTIVITY") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1) 
+```
+
+#OrthoPhosphate_W
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, ORTHOPHOSPHATE_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("ORTHOPHOSPHATE") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1) 
+```
+#Total Phosphorus
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, PHOSPHOROUS_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("TOTAL PHOSPHORUS") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1) 
+```
+
+#AMMONIA
+```{r, fig.width=8, fig.height=12}
+p <- ggplot(`Ag_Data.df`, aes(date, AMMONIA_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("AMMONIA") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1)
+```
+#FECAL COLIFORM BACTERIA
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, FCB_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("FCB") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1) 
+```
+#NITRATE
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, NITRATE_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("NITRATE") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1)
+```
+#NITRITE
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, NITRITE_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("NITRITE") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1)
+```
+#TURBIDITY
+```{r, fig.width=8, fig.height=12}
+
+p <- ggplot(`Ag_Data.df`, aes(date, TURBIDITY_W, group = Location.Code, color = Location.Code))
+p + geom_point(aes()) + labs(title = "Water Chemistry across Stations 2016-2017") +
+  xlab("DATE") + ylab("TURBIDITY") + scale_fill_brewer(palette="BrBG") 	+ 
+  theme(axis.text.x=element_text(angle=90, size=10, color="black")) + theme(axis.text.y=element_text(size=10, color="black")) + 
+  theme(axis.title=element_text(face="bold")) +  scale_x_date(date_labels = "%m-%Y", date_breaks = "1 month") +
+  geom_smooth() + facet_wrap(~Location.Code, ncol = 1)
+```
+ 
+
